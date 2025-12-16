@@ -18,7 +18,7 @@ export class Ball {
         const vy = randomBetween(-config.maxSpeed, config.maxSpeed) || 1;
         const x = positionOverride?.x ?? randomBetween(size, width - size);
         const y = positionOverride?.y ?? randomBetween(size, height - size);
-        return new this({ x, y, vx, vy, size, color: randomColor })
+        return new this({ x, y, vx, vy, size, color: randomColor() })
     }
 
     // Dessin du rendu de la balle
@@ -32,8 +32,8 @@ export class Ball {
     // Gestion des collision sur les bord du canvas
     bounce(bounds) {
         const { width, height } = bounds;
-        if (this.x + this.size <= width || this.x - this.size <= 0) this.vx = -this.vx
-        if (this.y + this.size <= height || this.y - this.size <= 0) this.vy = -this.vy
+        if (this.x + this.size >= width || this.x - this.size <= 0) this.vx = -this.vx;
+        if (this.y + this.size >= height || this.y - this.size <= 0) this.vy = -this.vy;
     }
 
     // gestion des mouvements
@@ -83,7 +83,7 @@ export class Ball {
         const pThis = this.vx * nx + this.vy * ny;
         const pOther = other.vx * nx + other.vy * ny;
 
-        const pThisTan = this.vx * -ny + this.vy * ny;
+        const pThisTan = this.vx * -ny + this.vy * nx;
         const pOtherTan = other.vx * -ny + other.vy * nx;
 
         // Échange des composants normales, conserver tangentielles
@@ -92,10 +92,10 @@ export class Ball {
         const newOtherVx = pThis * nx + pOtherTan * -ny;
         const newOtherVy = pThis * ny + pOtherTan * nx;
 
-        this.vx = newThisVx || (Math.random() > 0.5 ? 1: -1);
-        this.vy = newThisVy || (Math.random() > 0.5 ? 1: -1);
-        other.vx = newOtherVx || (Math.random() > 0.5 ? 1: -1);
-        other.vy = newOtherVy || (Math.random() > 0.5 ? 1: -1);
+        this.vx = newThisVx || (Math.random() > 0.5 ? 1 : -1);
+        this.vy = newThisVy || (Math.random() > 0.5 ? 1 : -1);
+        other.vx = newOtherVx || (Math.random() > 0.5 ? 1 : -1);
+        other.vy = newOtherVy || (Math.random() > 0.5 ? 1 : -1);
 
         const newColor = randomColor();
         this.color = newColor;

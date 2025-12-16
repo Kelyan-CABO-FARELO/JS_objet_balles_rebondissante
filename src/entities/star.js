@@ -21,7 +21,7 @@ export class Star extends Ball {
                 this.y + Math.sin(innerAngle) * innerRadius
             )
         }
-        ctx.closPath();
+        ctx.closePath();
         ctx.fill();
     }
 }

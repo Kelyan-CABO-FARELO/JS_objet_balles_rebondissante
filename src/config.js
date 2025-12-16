@@ -8,8 +8,12 @@ export const config = {
     background: "rgba(0,0,0,0.22)",
     // Définir la proportion du tirage automatique
     shapeMix: {
-        ball: 0.6,
-        star: 0.25,
-        heart: 0.15
+        skull: 0.14,
+        rabbit: 0.14,
+        squid: 0.14,
+        ball: 0.14,
+        star: 0.14,
+        heart: 0.14,
+        diamond: 0.14
     }
 }
