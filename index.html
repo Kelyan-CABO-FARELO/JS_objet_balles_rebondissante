@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Balles rebondissante</title>
+</head>
+
+<body>
+    <!-- Header: Entête titre + descrption + boutons -->
+    <header>
+        <div class="title">
+            <h1>Js Objet: Balles rebondissantes</h1>
+            <p class="hint">Touches: P (pause) • + (ajouter) • - (retirer) • clic (ajoute un objet) • 1 (balle) •2
+                (étoile) • 3 (coeur) • 0 (aléatoire) </p>
+        </div>
+        <div class="palette" id="palette">
+            <button data-shape="ball" class="active">Balle (1)</button>
+            <button data-shape="star">Étoile (2)</button>
+            <button data-shape="heart">Coeur (3)</button>
+            <button data-shape="auto">Aléatoire (0)</button>
+        </div>
+    </header>
+
+    <!-- Canvas: Zone de rendue pour les objets -->
+    <canvas></canvas>
+
+    <!-- Chargement du module principal-->
+    <script src="./src/main.js"></script>
+</body>
+
+</html>
