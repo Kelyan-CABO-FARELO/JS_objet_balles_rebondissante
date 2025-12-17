@@ -27,49 +27,88 @@ Avant de commencer, assurez-vous d'avoir installé :
 3.  Installez les dépendances nécessaires (notamment Vite) avec la commande suivante :
 
 ```bash
-npm install
+npm install```
 
-📘 Documentation du Projet : Simulation InteractiveCe projet est une simulation visuelle interactive réalisée avec l'API Canvas HTML5. Il permet de faire apparaître et d'animer différentes entités géométriques avec une gestion physique simple.▶️ DémarrageMode DéveloppementPour lancer le serveur local avec rechargement automatique (HMR) :Bashnpm run dev
-Cliquez sur le lien local qui s'affiche (ex: http://localhost:5173/) pour ouvrir l'application.Mode Production (Build)Pour compiler le projet en fichiers statiques optimisés (dans le dossier /dist) :Bashnpm run build
-Pour prévisualiser le build localement :Bashnpm run preview
-🎮 Contrôles et UtilisationL'application se contrôle à la fois au clavier et à la souris. La logique principale est gérée dans src/engine.js.⌨️ Raccourcis ClavierToucheActionDescriptionPPauseFige ou reprend l'animation.+AjouterAjoute une entité (selon la forme sélectionnée) au centre ou aléatoirement.-SupprimerRetire la dernière entité créée.0Auto / RandomMode aléatoire : le clic générera une forme au hasard.1BalleSélectionne la forme : 🔴 Cercle.2ÉtoileSélectionne la forme : ⭐ Étoile à 5 branches.3CœurSélectionne la forme : ❤️ Cœur.4LosangeSélectionne la forme : 🔶 Losange (Carreau).5CrâneSélectionne la forme : 💀 Tête de mort.6LapinSélectionne la forme : 🐰 Tête de lapin.7CalamarSélectionne la forme : 🦑 Calamar (👾).🖱️ SourisClic Gauche (Canvas) : Fait apparaître ("Spawn") une nouvelle entité exactement à l'endroit cliqué.Clic Gauche (Palette) : Permet de changer la forme active visuellement via l'interface en haut de l'écran.⚙️ ConfigurationLe fichier src/config.js permet de régler les variables globales de la simulation sans toucher au code logique.JavaScript// Exemple de contenu de src/config.js
-export const config = {
-    ballCount: 0,           // Nombre d'objets créés au lancement
-    minSize: 12,            // Rayon minimum des objets (px)
-    maxSize: 22,            // Rayon maximum des objets (px)
-    maxSpeed: 3,            // Vitesse max en x et y
-    background: "rgba(0,0,0,0.22)", // Couleur de fond (l'alpha < 1 crée l'effet de trainée)
-    
-    // Probabilités d'apparition pour le mode "Aléatoire" (Total ~ 1.0)
-    shapeMix: {
-        skull: 0.14,
-        rabbit: 0.14,
-        squid: 0.14,
-        ball: 0.14,
-        star: 0.14,
-        heart: 0.14,
-        diamond: 0.14
-    }
-}
-📂 Architecture du ProjetVoici comment sont organisés les fichiers sources :Plaintext📁 Racine du projet
-├── index.html          # Point d'entrée HTML (Structure DOM + Canvas)
-├── style.css           # Styles globaux (Interface, Header, Reset CSS)
-├── package.json        # Configuration NPM et scripts
-├── vite.config.js      # (Optionnel) Configuration Vite si présente
-└── 📁 src/
-    ├── main.js         # Point d'entrée JS : Initialise l'Engine et l'UI
-    ├── config.js       # Paramètres globaux (Vitesse, Taille, Couleurs...)
-    ├── engine.js       # Cœur du système : Boucle de jeu, Events, Resize
-    │
-    ├── 📁 utils/
-    │   └── random.js   # Fonctions helpers (Aléatoire, Couleurs RGB)
-    │
-    └── 📁 entities/    # Classes Objets (Logique de dessin propre à chaque forme)
-        ├── balls.js    # Classe Mère (Physique de base)
-        ├── diamond.js  # Forme : Losange
-        ├── heart.js    # Forme : Cœur
-        ├── rabbit.js   # Forme : Lapin
-        ├── skull.js    # Forme : Crâne
-        ├── squid.js    # Forme : Calamar
-        └── star.js     # Forme : Étoile
-💻 TechnologiesLangage : JavaScript (ECMAScript Modules - ESM)Rendu : API Canvas 2D HTML5Build Tool : Vite (Rapide et léger)Style : CSS3Projet réalisé dans le cadre d'un apprentissage JavaScript Orienté Objet.
+**Présentation**
+
+Ce dépôt contient une petite simulation visuelle en JavaScript qui anime des entités (balles, étoiles, cœurs, etc.) sur un `canvas` HTML5. Les objets rebondissent sur les bords et gèrent des collisions entre eux.
+
+**Démo rapide**
+
+- **Ouvrir localement** : double-cliquez sur `index.html` ou servez le projet avec un serveur de développement.
+
+**Installation**
+
+- **Prérequis** : `Node.js` et `npm` (si vous utilisez les scripts NPM).
+- Depuis la racine du projet, installez les dépendances :
+
+```bash
+npm install
+```
+
+**Lancement**
+
+- Mode développement (si présent dans `package.json`) :
+
+```bash
+npm run dev
+```
+
+- Ouvrir directement (sans serveur) :
+
+```bash
+xdg-open index.html   # Linux
+open index.html       # macOS
+```
+
+**Contrôles**
+
+- **P** : Pause / reprise
+- **+** : Ajouter une entité
+- **-** : Retirer la dernière entité
+- **1 / 2 / 3** : Sélectionner respectivement `ball`, `star`, `heart` (ou autre selon la palette)
+- **0** : Mode automatique (forme aléatoire)
+- **Clic sur le canvas** : Faire apparaître une entité à la position du clic
+
+Consultez `src/engine.js` pour plus de détails sur les interactions et événements.
+
+**Configuration**
+
+- Les paramètres globaux sont dans `src/config.js` : nombre initial d'entités, tailles (`minSize`, `maxSize`), vitesse (`maxSpeed`), couleur de fond, et `shapeMix` pour les probabilités en mode aléatoire.
+
+**Structure du projet**
+
+- `index.html` — point d'entrée et `canvas`
+- `style.css` — styles de l'interface
+- `package.json` — scripts NPM (si présents)
+- `src/`
+  - `main.js` — bootstrap de l'application
+  - `config.js` — configuration globale
+  - `engine.js` — boucle, gestion d'événements, création d'entités
+  - `entities/` — classes d'entités (`balls.js`, `star.js`, `heart.js`, ...)
+  - `utils/random.js` — utilitaires aléatoires
+
+**Dépannage rapide**
+
+- Si vous voyez des erreurs dans la console du navigateur, regardez d'abord `src/entities/balls.js` et `src/engine.js` (gestion des collisions et des appels de méthode). 
+- Pour tester rapidement : ouvrez la console DevTools (F12) et vérifiez l'absence d'erreurs JS.
+
+**Contribuer / Remarques**
+
+- PRs bienvenues pour améliorer le rendu, ajouter des formes, ou corriger la physique.
+- Pour des changements locaux rapides, modifiez `src/config.js` et rechargez la page.
+
+**Licence & Crédits**
+
+- Code : usage personnel / pédagogique par défaut. Indiquez-moi si vous souhaitez ajouter une licence explicite.
+
+---
+
+Si vous voulez, je peux aussi :
+
+- ajouter des captures d'écran, 
+- documenter les fonctions publiques (ex. `Ball.createRandom`, `Engine.addEntity`),
+- ou créer un script `npm run start` dans `package.json` si nécessaire.
+
+Fin du README
+*** End Patch
