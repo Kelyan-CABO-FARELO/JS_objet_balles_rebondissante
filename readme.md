@@ -122,8 +122,4 @@ export const config = {
 
 ## 📝 Licence
 
-Usage personnel / pédagogique. Indiquez si vous souhaitez ajouter une licence explicite (MIT, Apache, etc.).
-
----
-
-Si tu veux que j'ajoute des captures d'écran, des GIFs ou que je crée un script `npm start`, dis-le et je l'ajoute.
+Usage personnel / pédagogique.
