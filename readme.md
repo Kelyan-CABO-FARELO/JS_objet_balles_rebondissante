@@ -1,83 +1,98 @@
 # 🎾 JS Objet : Balles Rebondissantes
 
-Ce projet est une simulation interactive de physique en **JavaScript (ES6)** utilisant l'API **HTML5 Canvas**. Il génère divers objets géométriques et ludiques (balles, étoiles, cœurs, crânes, etc.) qui rebondissent sur les parois de l'écran et entrent en collision les uns avec les autres.
+Une simulation physique interactive développée en **JavaScript (ES6)** et **HTML5 Canvas**. Ce projet illustre les concepts de **Programmation Orientée Objet** (héritage, polymorphisme) à travers un générateur de formes ludiques qui s'entrechoquent.
 
-Le projet est construit avec une architecture modulaire et utilise **Vite** comme environnement de développement.
+---
 
-## ✨ Fonctionnalités
+## ✨ Fonctionnalités Principales
 
-* **Moteur Physique** : Gestion des déplacements, rebonds sur les bords et résolution des collisions entre entités.
-* **Formes Polymorphes** : Support de multiples formes (Balle, Étoile, Cœur, Losange, Crâne, Lapin, Calamar).
-* **Interactivité** : Contrôles au clavier et à la souris pour ajouter/retirer des objets ou changer de forme.
-* **Interface UI** : Une palette visuelle pour sélectionner la forme à faire apparaître.
-* **Responsive** : Le canvas s'adapte automatiquement à la taille de la fenêtre.
-* **Configuration** : Fichier de configuration centralisé pour ajuster la vitesse, la taille et les probabilités d'apparition.
+* **⚡ Moteur Physique Maison** : Gestion de la vélocité, rebonds sur les parois et résolution des collisions (rebond élastique + anti-chevauchement).
+* **🎨 Polymorphisme** : 7 formes uniques héritant d'une classe mère `Ball` (Balle, Étoile, Cœur, Losange, Crâne, Lapin, Calamar).
+* **🎮 Interactivité Totale** : Contrôle complet via clavier et souris (ajout, suppression, pause, changement de forme).
+* **📱 Responsive** : Le canvas s'adapte dynamiquement à la taille de la fenêtre.
 
-## 🛠️ Prérequis
+---
 
-Avant de commencer, assurez-vous d'avoir installé :
+## 🚀 Installation & Démarrage
 
-* [Node.js](https://nodejs.org/) (version 14 ou supérieure recommandée)
-* npm (normalement inclus avec Node.js)
+Assurez-vous d'avoir **[Node.js](https://nodejs.org/)** installé.
 
-## 🚀 Installation
+1.  **Installez les dépendances** (Vite, etc.) :
 
-1.  **Cloner ou télécharger** les fichiers du projet dans un dossier local.
-2.  Ouvrez un terminal dans ce dossier.
-3.  Installez les dépendances nécessaires (notamment Vite) avec la commande suivante :
+  ```bash
+  npm install
+  ```
 
-```bash
-npm install
+2.  **Lancez le projet** (Mode développement) :
+
+  ```bash
+  npm run dev
+  ```
+
+  > Ouvrez ensuite le lien local affiché (ex: `http://localhost:5173/`).
+
+3.  *(Optionnel)* **Pour la mise en production** :
+
+  ```bash
+  npm run build
+  npm run preview
+  ```
+
+---
+
+## 🎮 Contrôles
+
+Toute la logique d'interaction est centralisée dans le moteur de jeu (`src/engine.js`).
+
+### ⌨️ Clavier
+
+| Touche | Action |
+| :---: | :--- |
+| **P** | ⏸️ **Pause** / Lecture |
+| **+** | ➕ **Ajouter** une entité (au centre ou aléatoirement) |
+| **-** | ➖ **Supprimer** la dernière entité |
+| **0** | 🎲 Mode **Aléatoire** (forme au hasard au prochain clic) |
+| **1** | 🔴 **Balle** |
+| **2** | ⭐ **Étoile** |
+| **3** | ❤️ **Cœur** |
+| **4** | 🔶 **Losange** |
+| **5** | 💀 **Crâne** |
+| **6** | 🐰 **Lapin** |
+| **7** | 🦑 **Calamar** |
+
+### 🖱️ Souris
+
+* **Clic Gauche (sur le canvas)** : Fait apparaître (`spawn`) une forme à la position du curseur.
+* **Clic sur la palette** : Change la forme active visuellement.
+
+---
+
+## ⚙️ Configuration
+
+Vous pouvez ajuster les paramètres globaux dans `src/config.js` sans toucher au moteur.
+
+```javascript
+export const config = {
+  ballCount: 0,             // Nombre d'objets au démarrage
+  minSize: 12,              // Taille min (px)
+  maxSize: 22,              // Taille max (px)
+  maxSpeed: 3,              // Vitesse max
+  background: "rgba(0,0,0,0.22)",  // Couleur de fond (transparence pour effet traînée)
+  shapeMix: {               // Probabilités pour le mode "Aléatoire"
+    ball: 0.14,
+    star: 0.14,
+    heart: 0.14,
+    diamond: 0.14,
+    skull: 0.14,
+    rabbit: 0.14,
+    squid: 0.16
+  }
+}
 ```
 
-**Présentation**
+---
 
-Ce dépôt contient une petite simulation visuelle en JavaScript qui anime des entités (balles, étoiles, cœurs, etc.) sur un `canvas` HTML5. Les objets rebondissent sur les bords et gèrent des collisions entre eux.
-
-**Démo rapide**
-
-- **Ouvrir localement** : double-cliquez sur `index.html` ou servez le projet avec un serveur de développement.
-
-**Installation**
-
-- **Prérequis** : `Node.js` et `npm` (si vous utilisez les scripts NPM).
-- Depuis la racine du projet, installez les dépendances :
-
-```bash
-npm install
-```
-
-**Lancement**
-
-- Mode développement (si présent dans `package.json`) :
-
-```bash
-npm run dev
-```
-
-- Ouvrir directement (sans serveur) :
-
-```bash
-xdg-open index.html   # Linux
-open index.html       # macOS
-```
-
-**Contrôles**
-
-- **P** : Pause / reprise
-- **+** : Ajouter une entité
-- **-** : Retirer la dernière entité
-- **1 / 2 / 3** : Sélectionner respectivement `ball`, `star`, `heart` (ou autre selon la palette)
-- **0** : Mode automatique (forme aléatoire)
-- **Clic sur le canvas** : Faire apparaître une entité à la position du clic
-
-Consultez `src/engine.js` pour plus de détails sur les interactions et événements.
-
-**Configuration**
-
-- Les paramètres globaux sont dans `src/config.js` : nombre initial d'entités, tailles (`minSize`, `maxSize`), vitesse (`maxSpeed`), couleur de fond, et `shapeMix` pour les probabilités en mode aléatoire.
-
-**Structure du projet**
+## 📂 Structure du projet
 
 - `index.html` — point d'entrée et `canvas`
 - `style.css` — styles de l'interface
@@ -89,27 +104,26 @@ Consultez `src/engine.js` pour plus de détails sur les interactions et événem
   - `entities/` — classes d'entités (`balls.js`, `star.js`, `heart.js`, ...)
   - `utils/random.js` — utilitaires aléatoires
 
-**Dépannage rapide**
+---
 
-- Si vous voyez des erreurs dans la console du navigateur, regardez d'abord `src/entities/balls.js` et `src/engine.js` (gestion des collisions et des appels de méthode). 
-- Pour tester rapidement : ouvrez la console DevTools (F12) et vérifiez l'absence d'erreurs JS.
+## 🩺 Dépannage rapide
 
-**Contribuer / Remarques**
-
-- PRs bienvenues pour améliorer le rendu, ajouter des formes, ou corriger la physique.
-- Pour des changements locaux rapides, modifiez `src/config.js` et rechargez la page.
-
-**Licence & Crédits**
-
-- Code : usage personnel / pédagogique par défaut. Indiquez-moi si vous souhaitez ajouter une licence explicite.
+- Ouvrez la console DevTools (F12) et regardez les erreurs JS si le rendu ne s'affiche pas.
+- Erreurs fréquentes : appel de méthode mal orthographié (ex: `collidesWith`), `randomColor` non appelé (`randomColor()`), ou erreurs lors du `import`.
 
 ---
 
-Si vous voulez, je peux aussi :
+## 🤝 Contribuer
 
-- ajouter des captures d'écran, 
-- documenter les fonctions publiques (ex. `Ball.createRandom`, `Engine.addEntity`),
-- ou créer un script `npm run start` dans `package.json` si nécessaire.
+- PRs bienvenues : ajout de formes, amélioration physique, optimisation.
+- Pour contribuer localement : modifiez `src/` puis soumettez une PR.
 
-Fin du README
-*** End Patch
+---
+
+## 📝 Licence
+
+Usage personnel / pédagogique. Indiquez si vous souhaitez ajouter une licence explicite (MIT, Apache, etc.).
+
+---
+
+Si tu veux que j'ajoute des captures d'écran, des GIFs ou que je crée un script `npm start`, dis-le et je l'ajoute.
