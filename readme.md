@@ -27,7 +27,8 @@ Avant de commencer, assurez-vous d'avoir installé :
 3.  Installez les dépendances nécessaires (notamment Vite) avec la commande suivante :
 
 ```bash
-npm install```
+npm install
+```
 
 **Présentation**
 
